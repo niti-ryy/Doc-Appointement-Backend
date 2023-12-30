@@ -19,6 +19,7 @@ configDb()
 
 app.post("/api/v1/profile",checkSchema(userRegistrationValidation),profileCltr.create)
 app.post("/api/v1/login",checkSchema(loginValidation),profileController.login)
+
 app.get("/api/v1/:role",profileController.getUserAndCounselors)
 
 
