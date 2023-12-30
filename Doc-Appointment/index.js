@@ -32,6 +32,9 @@ app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounsel
 
 
 
+
+app.post("/api/v1/Create_blog",blogCltr.create)
+
 app.listen(Port,()=>{
     console.log("server connected on port",Port)
 })
