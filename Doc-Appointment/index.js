@@ -30,6 +30,9 @@ app.get("/api/v1/:role", profileController.getUserAndCounselors)
 // to get a single user or counselor by their ID
 app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounselor)
 
+
+
+
 app.post("/api/v1/Create_blog",blogCltr.create)
 
 app.listen(Port,()=>{
