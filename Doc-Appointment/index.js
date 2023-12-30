@@ -17,10 +17,19 @@ app.use(cors())
 const Port=process.env.PORT || 3090
 configDb()
 
-app.post("/api/v1/profile",checkSchema(userRegistrationValidation),profileCltr.create)
-app.post("/api/v1/login",checkSchema(loginValidation),profileController.login)
+//tested and working
+// for user registration
+app.post("/api/v1/profile", checkSchema(userRegistrationValidation), profileCltr.create)
 
-app.get("/api/v1/:role",profileController.getUserAndCounselors)
+// for user login
+app.post("/api/v1/login", checkSchema(loginValidation), profileController.login)
+
+// to get users or counselors based on their roles
+app.get("/api/v1/:role", profileController.getUserAndCounselors)
+
+// to get a single user or counselor by their ID
+app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounselor)
+
 
 
 app.listen(Port,()=>{
