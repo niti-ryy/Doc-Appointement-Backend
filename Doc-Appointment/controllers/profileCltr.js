@@ -1,6 +1,6 @@
 const profileController = {};
 const Profile = require("../models/profileModel");
-const pick = require("lodash/pick");
+const _=require("lodash");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 const jwt=require("jsonwebtoken")
@@ -11,7 +11,7 @@ profileController.create = async (req, res) => {
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()})
     }
-    const userData = pick(req.body, ["firstName", "lastName", "email", "phone", "password", "role"]);
+    const userData = _.pick(req.body, ["firstName", "lastName", "email", "phone", "password", "role"]);
     const newUser = new Profile(userData);
     try {
         const saltRounds = 10
@@ -40,6 +40,7 @@ profileController.login=async(req,res)=>{
             errors:errors.array()
         })
     }
+    console.log(req.body)
     const {email,password}=req.body
     try{
         const user=await Profile.findOne({email:email})
@@ -60,6 +61,9 @@ profileController.login=async(req,res)=>{
             email:user.email
         }
         const token=jwt.sign(tokenData,"SECRETKEY",{expiresIn:"1d"})
+        res.status(201).json({
+          message:`Bearer ${token}`
+        })
     }catch(e){
         res.status(401).json({
             message:e.message
