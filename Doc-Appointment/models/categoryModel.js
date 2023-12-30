@@ -7,7 +7,8 @@ const categorySchema = new mongoose.Schema({
   questions: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Question', // Reference to the Question schema
-  }]
+  }],
+  image:String
 });
 
 const Category = mongoose.model('Category', categorySchema);

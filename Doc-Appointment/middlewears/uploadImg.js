@@ -1,12 +1,12 @@
 const multer=require("multer")
 
 const storage=multer.diskStorage({
-    destination:(req,res,cb)=>{
-        cb(null,"/uploads/images")
+    destination:(req,file,cb)=>{
+        cb(null,"uploads/images")
     },
-    filename:(req,res,cb)=>{
+    filename:(req,file,cb)=>{
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null,file.fieldname+"-"+uniqueSuffix)
+        cb(null,file.orignalname+"-"+uniqueSuffix)
     }
 })
 
