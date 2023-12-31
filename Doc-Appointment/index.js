@@ -10,6 +10,7 @@ const {userRegistrationValidation,loginValidation} = require("./helpers/profile-
 const profileController = require("./controllers/profileCltr")
 const blogsCltr = require("./controllers/blogsCltr")
 const BlogsRoute=require("./routes/BlogsRoutes")
+const categoryRoutes = require("./routes/CategoryRoutes")
 
 const app=express()
 app.use(express.static('public')); // 'public' is the directory where your images are stored.
@@ -37,8 +38,10 @@ app.post("/upload",uploadImg,(req,res)=>{
     res.send("upled")
 })
 
-// app.post("/api/v1/Create_blog",uploadImg,blogsCltr.create)
+//Blog Routes
 app.use("/api/v1",BlogsRoute)
+//Category Routes
+app.use("/api/v1",categoryRoutes)
 
 app.listen(Port,()=>{
     console.log("server connected on port",Port)
