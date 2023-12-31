@@ -8,6 +8,7 @@ const profileCltr = require("./controllers/profileCltr")
 const {checkSchema, validationResult}=require("express-validator")
 const {userRegistrationValidation,loginValidation} = require("./helpers/profile-validation")
 const profileController = require("./controllers/profileCltr")
+const blogsCltr = require("./controllers/blogsCltr")
 
 const app=express()
 app.use(express.static('public')); // 'public' is the directory where your images are stored.
@@ -31,9 +32,11 @@ app.get("/api/v1/:role", profileController.getUserAndCounselors)
 app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounselor)
 
 
+app.post("/upload",uploadImg,(req,res)=>{
+    res.send("upled")
+})
 
-
-app.post("/api/v1/Create_blog",blogCltr.create)
+app.post("/api/v1/Create_blog",uploadImg,blogsCltr.create)
 
 app.listen(Port,()=>{
     console.log("server connected on port",Port)
