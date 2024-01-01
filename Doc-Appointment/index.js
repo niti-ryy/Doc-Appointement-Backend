@@ -34,14 +34,12 @@ app.get("/api/v1/:role", profileController.getUserAndCounselors)
 app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounselor)
 
 
-app.post("/upload",uploadImg,(req,res)=>{
-    res.send("upled")
-})
-
 //Blog Routes
 app.use("/api/v1",BlogsRoute)
 //Category Routes
 app.use("/api/v1",categoryRoutes)
+
+app.put("/api/v1/update")
 
 app.listen(Port,()=>{
     console.log("server connected on port",Port)

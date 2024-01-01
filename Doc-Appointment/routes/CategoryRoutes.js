@@ -9,7 +9,8 @@ categoryRoutes.route("/getCategories")
     .get(categoryCltr.getCategories)
 categoryRoutes.route("/deleteCategory/:categoryId")
     .delete(categoryCltr.deleteCategory)
-categoryRoutes.route("/test")
-    .get((req,res)=>{res.send("clicked")})
-
+categoryRoutes.route("/updateCat/:id")
+    .put(categoryCltr.updateCategory)
+categoryRoutes.route("/updateImg/:id")
+    .patch(uploadImg,categoryCltr.imageUpdate)
 module.exports=categoryRoutes
