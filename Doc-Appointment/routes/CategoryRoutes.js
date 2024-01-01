@@ -9,5 +9,7 @@ categoryRoutes.route("/getCategories")
     .get(categoryCltr.getCategories)
 categoryRoutes.route("/deleteCategory/:categoryId")
     .delete(categoryCltr.deleteCategory)
+categoryRoutes.route("/test")
+    .get((req,res)=>{res.send("clicked")})
 
 module.exports=categoryRoutes

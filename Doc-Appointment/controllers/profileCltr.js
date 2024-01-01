@@ -15,7 +15,6 @@ profileController.create = async (req, res) => { // Controller function to handl
     }
     const userData = _.pick(req.body, ["firstName", "lastName", "email", "phone", "password", "role"]) // Pick necessary fields from the request body
     const newUser = new Profile(userData)
-    
     try {
         const saltRounds = 10
         const salt = await bcrypt.genSalt(saltRounds) // Generate salt for password hashing
