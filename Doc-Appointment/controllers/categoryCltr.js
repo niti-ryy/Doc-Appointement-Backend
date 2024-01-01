@@ -1,7 +1,9 @@
 const Category = require("../models/categoryModel");
-const categoryCltr = {};
 const pick = require("lodash/pick");
-const mongoose=require("mongoose")
+const mongoose = require("mongoose");
+
+const categoryCltr = {};
+
 // Create a new category
 categoryCltr.create = async (req, res) => {
     try {
@@ -13,9 +15,9 @@ categoryCltr.create = async (req, res) => {
         }
         // Assign the file path to the 'image' property in the request body
         req.body.image = req.file.path;
-        
+
         const category = new Category(req.body);
-        category.createdAt=Date().split(" ").slice(1,5).join(" ")
+        category.createdAt = Date().split(" ").slice(1, 5).join(" "); // Extract date info
         const savedCategory = await category.save();
 
         // Check if the category was not saved
@@ -26,7 +28,7 @@ categoryCltr.create = async (req, res) => {
         }
         res.status(200).json({
             message: "Category Created Successfully",
-            category:savedCategory
+            category: savedCategory
         });
     } catch (e) {
         res.status(500).json({
@@ -38,7 +40,7 @@ categoryCltr.create = async (req, res) => {
 
 // Get all categories
 categoryCltr.getCategories = async (req, res) => {
-    try {    
+    try {
         const allCategories = await Category.find();
         // Check if no categories are found
         if (allCategories.length === 0) {
@@ -60,7 +62,7 @@ categoryCltr.getCategories = async (req, res) => {
 
 // Delete a category by ID
 categoryCltr.deleteCategory = async (req, res) => {
-    try {   
+    try {
         const categoryId = req.params.categoryId;
         const deletedCategory = await Category.findByIdAndDelete(categoryId);
         // Check if the category was not found for deletion
@@ -83,10 +85,11 @@ categoryCltr.deleteCategory = async (req, res) => {
     }
 };
 
+// Update a category by ID
 categoryCltr.updateCategory = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
-    console.log(body)
+
     try {
         const updatedCategory = await Category.findByIdAndUpdate(
             id,
@@ -109,7 +112,7 @@ categoryCltr.updateCategory = async (req, res) => {
     }
 };
 
-
+// Update category image by ID
 categoryCltr.imageUpdate = async (req, res) => {
     // Check if file is uploaded
     if (!req.file) {
@@ -130,7 +133,7 @@ categoryCltr.imageUpdate = async (req, res) => {
         }
         res.status(201).json({
             message: "Category Image Updated successfully",
-            updatedCategory:updatedCategory
+            updatedCategory: updatedCategory
         });
     } catch (e) {
         return res.status(500).json({
@@ -138,8 +141,6 @@ categoryCltr.imageUpdate = async (req, res) => {
             error: e.message
         });
     }
-}
-    
-
+};
 
 module.exports = categoryCltr;
