@@ -34,6 +34,7 @@ profileController.create = async (req, res) => { // Controller function to handl
     }
 }
 
+
 profileController.login = async (req, res) => { // Controller function to handle user login
     const errors = validationResult(req) // Validate the request body
     if (!errors.isEmpty()) {

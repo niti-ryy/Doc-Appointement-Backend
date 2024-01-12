@@ -11,6 +11,8 @@ const profileController = require("./controllers/profileCltr")
 const blogsCltr = require("./controllers/blogsCltr")
 const BlogsRoute=require("./routes/BlogsRoutes")
 const categoryRoutes = require("./routes/CategoryRoutes")
+const counselorRoutes = require("./routes/CounselorRoutes")
+
 
 const app=express()
 app.use(express.static('public')); // 'public' is the directory where your images are stored.
@@ -38,6 +40,8 @@ app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounsel
 app.use("/api/v1",BlogsRoute)
 //Category Routes
 app.use("/api/v1",categoryRoutes)
+//Counselor Routes
+app.use("/api/v1",counselorRoutes)
 
 app.put("/api/v1/update")
 

@@ -112,7 +112,7 @@ categoryCltr.updateCategory = async (req, res) => {
     }
 };
 
-// Update category image by ID
+// Update category image by ID  
 categoryCltr.imageUpdate = async (req, res) => {
     // Check if file is uploaded
     if (!req.file) {

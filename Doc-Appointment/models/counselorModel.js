@@ -21,9 +21,7 @@ const counselorSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, ref: 'category'
   }],
   languages:{
-    type:String,
     enum:["English","Hindi"],
-    required:true
   },
   achievements:{
     type:String
