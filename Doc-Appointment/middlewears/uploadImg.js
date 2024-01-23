@@ -1,10 +1,8 @@
-
-
 const multer=require("multer")
 
-const storage=multer.diskStorage({
+const ImageStorage=multer.diskStorage({
     destination:(req,file,cb)=>{
-        cb(null,"uploads/images")
+        cb(null,"uploads/MultiMediaFiles")
     },
     filename:(req,file,cb)=>{
         const uniqueSuffix=Number(Date.now())
@@ -12,6 +10,6 @@ const storage=multer.diskStorage({
     }
 })
 
-const upload=multer({storage:storage})
+const upload=multer({storage:ImageStorage})
 const uploadImg=upload.single("image")
 module.exports=uploadImg

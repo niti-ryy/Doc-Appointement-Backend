@@ -11,7 +11,6 @@ const counselorSchema = new mongoose.Schema({
   // todos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TODO' }],
   image: String,
   consulationFees: {
-    required: true,
     type: Number
   },
   bio: { type: String, required: true },
