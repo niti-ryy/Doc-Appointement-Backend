@@ -1,9 +1,23 @@
 const Counsellor=require("../models/counselorModel")
+const {isMongoId}=require("express-validator")
+const Profile=require("../models/profileModel")
 
 const profileSchema={
-   
     isEmpty:{
         errorMessage:"profile cannot be empty"
+    },
+    // isMongoId:{
+    //     errorMessage:"invalid MongoId"
+    // },
+    custom:{
+        options:async(value,{req})=>{
+            const checkProfile=Profile.findOne(value)
+            if(!checkProfile){
+                throw new Error("profile not found")
+            }else{
+                return true
+            }
+        }
     }
 }
 
@@ -22,12 +36,14 @@ const availabilitySchema={
 const experiencesSchema={
     isEmpty:{
         errorMessage:"experiences cannot be empty"
-    }
+    },
+    // isNumeric   : {
+    //     errorMessage: "Experiences should be a valid integer",
+    // }
     
 }
 
 const consulationFees={
-
     isEmpty:{
         errorMessage:"consulation fees cannot be empty"
     }
