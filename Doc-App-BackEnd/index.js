@@ -8,16 +8,14 @@ const profileCltr = require("./controllers/profileCltr")
 const {checkSchema, validationResult}=require("express-validator")
 const {userRegistrationValidation,loginValidation} = require("./helpers/profile-validation")
 const profileController = require("./controllers/profileCltr")
-const blogsCltr = require("./controllers/blogsCltr")
 const BlogsRoute=require("./routes/BlogsRoutes")
 const categoryRoutes = require("./routes/CategoryRoutes")
 const counselorRoutes = require("./routes/CounselorRoutes")
 const authenticate = require("./middlewears/authenticate")
 const checkRole = require("./middlewears/checkRole")
-const {uploadImageFiles,uploadVideoFiles}=require("./middlewears/uploadvideo")
-const uploadVideo = require("./middlewears/uploadvideo")
 const counselorCltr=require("./controllers/counselorCltr")
 const feedBackRoutes = require("./routes/feedbackRoutes")
+const feedbackCltr = require("./controllers/feedbackCltr")
 
 
 const app=express()
@@ -54,7 +52,9 @@ app.use("/api/v1",feedBackRoutes)
 
 
 //gets all the poupulated counselors
-app.get("/api/getPopulatecCounselors",counselorCltr.getPopulated)   
+app.get("/api/getPopulatecCounselors",counselorCltr.getPopulated) 
+
+app.get("/api/v1/getFeedBacks/:counselorId",feedbackCltr.get)
 
 app.listen(Port,()=>{
     console.log("server connected on port",Port)
