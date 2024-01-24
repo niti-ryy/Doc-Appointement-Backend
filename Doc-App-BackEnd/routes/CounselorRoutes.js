@@ -13,4 +13,5 @@ counselorRouter.route("/counselorDetails/:counselorId/:type") //here the type pa
 counselorRouter.route("/:counselorId")
       .delete(counselorCltr.delete)
 
+    
 module.exports=counselorRouter
