@@ -17,6 +17,7 @@ const checkRole = require("./middlewears/checkRole")
 const {uploadImageFiles,uploadVideoFiles}=require("./middlewears/uploadvideo")
 const uploadVideo = require("./middlewears/uploadvideo")
 const counselorCltr=require("./controllers/counselorCltr")
+const feedBackRoutes = require("./routes/feedbackRoutes")
 
 
 const app=express()
@@ -47,23 +48,10 @@ app.use("/api/v1",BlogsRoute)
 app.use("/api/v1",categoryRoutes)
 //Counselor Routes
 app.use("/api/v1",counselorRoutes)
+//FeedBack Routes
+app.use("/api/v1",feedBackRoutes)
 
 
-app.post("/api/v1/video",uploadVideo,(req,res)=>{
-    res.status(200).json({
-        success:true,
-        message:"video uploaded successfully",
-        data:req.files
-    })
-})   
-
-app.post("/api/v1/img",uploadImg,(req,res)=>{
-    res.status(200).json({
-        success:true,
-        message:"video uploaded successfully",
-        data:req.files
-    })
-}) 
 
 //gets all the poupulated counselors
 app.get("/api/getPopulatecCounselors",counselorCltr.getPopulated)   

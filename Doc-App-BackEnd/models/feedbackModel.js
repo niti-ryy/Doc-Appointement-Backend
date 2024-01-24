@@ -7,7 +7,7 @@ const feedBackSchema=new Schema({
     appointmentId: { type: mongoose.Schema.Types.ObjectId, ref: "Appointment",required:true},
     reviewText:{type:String, required:true},
     rating:{type:Number,required:true,min:0,max:10,default:0},
-},{timestamps:true},)
+},{timestamps:true})
 
 
 
