@@ -12,5 +12,6 @@ counselorRouter.route("/counselorDetails/:counselorId/:type") //here the type pa
         .put(uploadVideo,counselorCltr.createVideo)
 counselorRouter.route("/:counselorId")
       .delete(counselorCltr.delete)
-//this is new otute
+
+    
 module.exports=counselorRouter
