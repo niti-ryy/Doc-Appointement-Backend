@@ -99,7 +99,7 @@ profileController.getUserAndCounselors = async (req, res) => { // Controller fun
     const { role } = req.params // Extract role from request parameters
     try {
         if (role === 'Counselor' || role === 'User') {
-            const profiles = await Profile.find({ role: role }) // Find profiles based on the specified role
+            const profiles = await Profile.find({ role: role },{firstName:1,lastName:1,email:1,role:1}) // Find profiles based on the specified role
             if (!profiles || profiles.length === 0) {
                 return res.status(404).json({ 
                     message: `No ${role}s Found`,

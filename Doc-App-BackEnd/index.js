@@ -34,7 +34,7 @@ app.post("/api/v1/profile", checkSchema(userRegistrationValidation), profileCltr
 app.post("/api/v1/login", checkSchema(loginValidation), profileController.login)
 
 // to get users or counselors based on their roles
-app.get("/api/v1/:role",authenticate,checkRole(["User"]),profileController.getUserAndCounselors)
+app.get("/api/v1/:role",profileController.getUserAndCounselors)
 
 // to get a single user or counselor by their ID
 app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounselor)
