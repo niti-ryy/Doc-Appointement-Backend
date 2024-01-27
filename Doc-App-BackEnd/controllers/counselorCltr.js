@@ -12,7 +12,7 @@ counselorCtrl.create = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const body = pick(req.body, ["profile", "specialization", "availability", "experiences", "consultationFees", "bio", "languages", "achievements", "categories", "image"]);
+    const body = pick(req.body, ["avgRating","profile", "specialization", "availability", "experiences", "consultationFees", "bio", "languages", "achievements", "categories", "image"]);
     if (!req.file) {
         return res.status(400).json({
             success: false,

@@ -24,7 +24,8 @@ const counselorSchema = new mongoose.Schema({
   },
   achievements:{
     type:String
-  }
+  },
+  avgRating:{type:Number,default:0}
 });
 
 const Counselor = mongoose.model('Counselor', counselorSchema);

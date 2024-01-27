@@ -16,6 +16,8 @@ const checkRole = require("./middlewears/checkRole")
 const counselorCltr=require("./controllers/counselorCltr")
 const feedBackRoutes = require("./routes/feedbackRoutes")
 const feedbackCltr = require("./controllers/feedbackCltr")
+const appointmentRoutes = require("./routes/AppointmentRoutes")
+const appointmentCltr = require("./controllers/appointmentCltr")
 
 
 const app=express()
@@ -48,6 +50,8 @@ app.use("/api/v1",categoryRoutes)
 app.use("/api/v1",counselorRoutes)
 //FeedBack Routes
 app.use("/api/v1",feedBackRoutes)
+//Appointment Routes
+app.use("/api/v1",appointmentRoutes)
 
 
 
@@ -56,6 +60,7 @@ app.get("/api/getPopulatecCounselors",counselorCltr.getPopulated)
 
 app.get("/api/v1/getFeedBacks/:counselorId",feedbackCltr.get)
 
+app.get("/api/v1/getAppointments/:counselorId",appointmentCltr.getAppointments)
 app.listen(Port,()=>{
     console.log("server connected on port",Port)
 })
