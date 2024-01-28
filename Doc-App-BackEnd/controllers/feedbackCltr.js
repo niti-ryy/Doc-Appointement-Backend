@@ -4,7 +4,12 @@ const Counselor=require("../models/counselorModel")
 const feedbackCltr={}
 
 feedbackCltr.create=async(req,res)=>{
+     
     try{
+        const checkSubmissions=await FeedBack.findById(req.body.appointmentId,{isFeedBackGiven:true})
+        if(checkSubmissions.isFeedBackGiven){
+            res.status(400).json({message:"Feedback is already given for this session."})
+        }
         const feedback=new FeedBack(req.body)
         await feedback.save()
         console.log(feedback)
@@ -18,22 +23,22 @@ feedbackCltr.create=async(req,res)=>{
 //function for creating avg rating
 async function updateCounselorAverageRating(counselorId) {
     try {
-        const feedbacks = await FeedBack.find({ counselorId: counselorId });
+        const feedbacks = await FeedBack.find({ counselorId: counselorId })
 
         if (feedbacks.length > 0) {
             const totalRating = feedbacks.reduce((sum, feedback) => sum + feedback.counselorRatings, 0);
-            const avgRating = totalRating / feedbacks.length;
+            const avgRating = Math.round(totalRating / feedbacks.length)
 
             // Directly update the counselor's avgRating using findOneAndUpdate
             await Counselor.findOneAndUpdate(
                 { _id: counselorId },
                 { $set: { avgRating: avgRating } },
                 { new: true }
-            );
+            )
         }
         console.log("avg rating  created")
     } catch (err) {
-        console.error('Error updating counselor average rating:', err.message);
+        console.error('Error updating counselor average rating:', err.message)
     }
 }
 

@@ -9,7 +9,7 @@ const counselorCtrl = {};
 counselorCtrl.create = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() })
     }
 
     const body = pick(req.body, ["avgRating","profile", "specialization", "availability", "experiences", "consultationFees", "bio", "languages", "achievements", "categories", "image"]);
@@ -19,7 +19,7 @@ counselorCtrl.create = async (req, res) => {
             message: "Please upload an image"
         })
     }
-    body.image = req.file.path;
+    body.image = req.file.path
 
     try {
         const newCounselor = new Counselor(body);
@@ -40,7 +40,7 @@ counselorCtrl.create = async (req, res) => {
 
 //updating counselor and adding video to counselor 
 counselorCtrl.createVideo = async (req, res) => {
-    const { counselorId, type } = req.params;
+    const { counselorId, type } = req.params
     const { body } = req;
     const videos = req.files;
     console.log(req.files)
@@ -52,7 +52,7 @@ counselorCtrl.createVideo = async (req, res) => {
             });
         }
 
-        const videoPaths = videos.map((video) => video.path);
+        const videoPaths = videos.map((video) => video.path)
 
         try {
             const counselor = await Counselor.findByIdAndUpdate(
@@ -113,7 +113,7 @@ counselorCtrl.createVideo = async (req, res) => {
 //delete counselor data
 
 counselorCtrl.delete = async (req, res) => {
-    const { counselorId } = req.params;
+    const { counselorId } = req.params
     try {
         const deletedCounselor = await Counselor.findByIdAndDelete(counselorId);
         if (!deletedCounselor) {
@@ -139,7 +139,7 @@ counselorCtrl.delete = async (req, res) => {
 
 counselorCtrl.getPopulated=async(req,res)=>{
     try{
-        const populatedCounselor=await Counselor.find().populate("profile");
+        const populatedCounselor=await Counselor.find().populate("profile")
         if(!populatedCounselor || populatedCounselor.length==0){
             return res.status(404).json({
                 success:false,
