@@ -20,14 +20,16 @@ const counselorSchema = new mongoose.Schema({
   categories: [{
     type: mongoose.Schema.Types.ObjectId, ref: 'category'
   }],
-  languages:{
-    type:String,
-    enum:["English","Hindi"],
-    required:true
+  languages: {
+    type: String,
+    enum: ["English", "Hindi"],
+    required: true
   },
-  achievements:{
-    type:String
-  }
+  achievements: [
+    {
+      type: String
+    }
+  ]
 });
 
 const Counselor = mongoose.model('Counselor', counselorSchema);
