@@ -26,11 +26,7 @@ const counselorSchema = new mongoose.Schema({
     {
       type: String
     }
-  ],
-  isProfileUpdated:{
-    type:Boolean,
-    default:false
-  }
+  ]
 });
 
 const Counselor = mongoose.model('Counselor', counselorSchema);
