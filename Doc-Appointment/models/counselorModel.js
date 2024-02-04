@@ -26,7 +26,8 @@ const counselorSchema = new mongoose.Schema({
     {
       type: String
     }
-  ]
+  ],
+
 });
 
 const Counselor = mongoose.model('Counselor', counselorSchema);
