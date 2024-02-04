@@ -61,7 +61,8 @@ profileController.login = async (req, res) => { // Controller function to handle
         const tokenData = {
             id: user._id,
             role: user.role,
-            email: user.email
+            email: user.email,
+            isCounselorProfileUpdated:user.isCounselorProfileUpdated
         }
         const token = jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: "1d" }) // Generate JWT token for user authentication
         res.status(201).json({ // Return success message with generated token for authenticated user
