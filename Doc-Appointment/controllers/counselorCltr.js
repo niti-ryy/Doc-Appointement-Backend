@@ -24,6 +24,9 @@ counselorCtrl.create = async (req, res) => {
     try {
         const newCounselor = new Counselor(body);
         const savedCounselor = await newCounselor.save();
+
+        
+
         res.status(201).json({
             success: true,
             message: "Counselor created successfully",
