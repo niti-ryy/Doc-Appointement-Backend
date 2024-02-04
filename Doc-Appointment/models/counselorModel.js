@@ -11,7 +11,6 @@ const counselorSchema = new mongoose.Schema({
   // todos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TODO' }],
   image: String,
   consulationFees: {
-    required: true,
     type: Number
   },
   bio: { type: String, required: true },
@@ -20,16 +19,18 @@ const counselorSchema = new mongoose.Schema({
   categories: [{
     type: mongoose.Schema.Types.ObjectId, ref: 'category'
   }],
-  languages: {
-    type: String,
-    enum: ["English", "Hindi"],
-    required: true
+  languages:{
+    enum:["English","Hindi"],
   },
   achievements: [
     {
       type: String
     }
-  ]
+  ],
+  isProfileUpdated:{
+    type:Boolean,
+    default:false
+  }
 });
 
 const Counselor = mongoose.model('Counselor', counselorSchema);

@@ -11,6 +11,12 @@ const profileController = require("./controllers/profileCltr")
 const blogsCltr = require("./controllers/blogsCltr")
 const BlogsRoute=require("./routes/BlogsRoutes")
 const categoryRoutes = require("./routes/CategoryRoutes")
+const counselorRoutes = require("./routes/CounselorRoutes")
+const authenticate = require("./middlewears/authenticate")
+const checkRole = require("./middlewears/checkRole")
+const {uploadImageFiles,uploadVideoFiles}=require("./middlewears/uploadvideo")
+const uploadVideo = require("./middlewears/uploadvideo")
+
 
 const app=express()
 app.use(express.static('public')); // 'public' is the directory where your images are stored.
@@ -28,7 +34,7 @@ app.post("/api/v1/profile", checkSchema(userRegistrationValidation), profileCltr
 app.post("/api/v1/login", checkSchema(loginValidation), profileController.login)
 
 // to get users or counselors based on their roles
-app.get("/api/v1/:role", profileController.getUserAndCounselors)
+app.get("/api/v1/:role",authenticate,checkRole(["User"]),profileController.getUserAndCounselors)
 
 // to get a single user or counselor by their ID
 app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounselor)
@@ -38,8 +44,17 @@ app.get("/api/v1/singleUserorCounsleor/:id", profileCltr.getSingleUserAndCounsel
 app.use("/api/v1",BlogsRoute)
 //Category Routes
 app.use("/api/v1",categoryRoutes)
+//Counselor Routes
+app.use("/api/v1",counselorRoutes)
 
-app.put("/api/v1/update")
+
+app.post("/api/v1/video",uploadVideo,(req,res)=>{
+    res.status(200).json({
+        success:true,
+        message:"video uploaded successfully",
+        data:req.files
+    })
+})   
 
 app.listen(Port,()=>{
     console.log("server connected on port",Port)

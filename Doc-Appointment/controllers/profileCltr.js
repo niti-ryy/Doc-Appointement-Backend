@@ -34,6 +34,7 @@ profileController.create = async (req, res) => { // Controller function to handl
     }
 }
 
+
 profileController.login = async (req, res) => { // Controller function to handle user login
     const errors = validationResult(req) // Validate the request body
     if (!errors.isEmpty()) {
@@ -105,15 +106,18 @@ profileController.getUserAndCounselors = async (req, res) => { // Controller fun
                 })
             }
             return res.status(200).json({
+                success: true,
                 message: profiles,
             })
         } else {
             return res.status(400).json({ 
+                success: false,
                 message: 'Invalid role specified',
             })
         }
     } catch (e) {
         res.status(500).json({ 
+            success: false,
             message: e.message,
         })
     }
