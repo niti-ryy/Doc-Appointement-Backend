@@ -57,10 +57,13 @@ app.use("/api/v1",appointmentRoutes)
 
 //gets all the poupulated counselors
 app.get("/api/getPopulatecCounselors",counselorCltr.getPopulated) 
-
+//gets all the feedbacks realted to a counsleor
 app.get("/api/v1/getFeedBacks/:counselorId",feedbackCltr.get)
-
+//gets all the appoinment related to a counselor
 app.get("/api/v1/getAppointments/:counselorId",appointmentCltr.getAppointments)
+// gets all aggregated counselor
+app.get("/api/v1/get_aggregated/:counselorId",appointmentCltr.aggregateAppointments)
+
 app.listen(Port,()=>{
     console.log("server connected on port",Port)
 })

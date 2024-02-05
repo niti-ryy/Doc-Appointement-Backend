@@ -1,4 +1,5 @@
 const Counselor = require("../models/counselorModel");
+const Profile=require("../models/profileModel")
 const { validationResult } = require("express-validator");
 const pick = require("lodash/pick");
 
@@ -24,6 +25,9 @@ counselorCtrl.create = async (req, res) => {
     try {
         const newCounselor = new Counselor(body);
         const savedCounselor = await newCounselor.save();
+        const {profile}=savedCounselor
+        const savedToProfile=await Profile.findOneAndUpdate(profile,{$set:{isCounsleorId:savedCounselor._id}},{new:true})
+        console.log(savedToProfile)
         res.status(201).json({
             success: true,
             message: "Counselor created successfully",
