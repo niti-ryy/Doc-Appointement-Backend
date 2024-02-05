@@ -26,7 +26,7 @@ counselorCtrl.create = async (req, res) => {
         const newCounselor = new Counselor(body);
         const savedCounselor = await newCounselor.save();
         const {profile}=savedCounselor
-        const savedToProfile=await Profile.findOneAndUpdate(profile,{$set:{isCounsleorId:savedCounselor._id}},{new:true})
+        const savedToProfile=await Profile.findOneAndUpdate(profile,{$set:{isCounsleorId:savedCounselor._id,isCounselorProfileUpdated:true}},{new:true})
         console.log(savedToProfile)
         res.status(201).json({
             success: true,
