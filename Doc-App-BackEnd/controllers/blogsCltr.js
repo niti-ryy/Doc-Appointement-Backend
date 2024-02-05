@@ -1,9 +1,11 @@
 const blogsCltr={}
 const Blog=require("../models/blogsModel")
+const Counselor=require("../models/counselorModel")
 const pick=require("lodash/pick")
 const {validationResult}=require("express-validator")
 
 blogsCltr.create = async (req, res) => {   //validations are to be added
+     const  {counselorId}=req.params
     try {
         if (!req.file || !req.file.path) {
             return res.status(400).json({ message: "No file uploaded or invalid file" })
@@ -12,7 +14,9 @@ blogsCltr.create = async (req, res) => {   //validations are to be added
         const { body } = req;
         body.image = imagepath;
         const blog = new Blog(body)
-         const savedBlog = await blog.save()
+        const savedBlog = await blog.save()
+        const pushedBlogId=await Counselor.findByIdAndUpdate(counselorId,{$push:{blogs:savedBlog._id}},{new:true})
+        console.log(pushedBlogId)
         if (!savedBlog) {
             return res.status(401).json({ message: "Failed to save Blog" });
         }
