@@ -25,7 +25,7 @@ app.use(express.static('public')); // 'public' is the directory where your image
 app.use(express.json())
 app.use(cors())
 
-const Port=process.env.PRODUCTION_PORT || process.env.DEVELOPMENT_PORT
+const Port=process.env.PRODUCTION_PORT || process.env.DEVELOPMENT_PORT || 3090
 configDb()
 
 //tested and working
