@@ -75,6 +75,7 @@ profileController.login = async (req, res) => {
       role: user.role,
       email: user.email,
       isCounselorProfileUpdated: user.isCounselorProfileUpdated,
+      counselorId:user.isCounsleorId
     };
     const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
       expiresIn: "1d",
