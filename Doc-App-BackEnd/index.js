@@ -18,6 +18,10 @@ const feedBackRoutes = require("./routes/feedbackRoutes")
 const feedbackCltr = require("./controllers/feedbackCltr")
 const appointmentRoutes = require("./routes/AppointmentRoutes")
 const appointmentCltr = require("./controllers/appointmentCltr")
+const paymentRoutes = require("./routes/PaymentRoutes")
+
+
+
 
 
 const app=express()
@@ -52,6 +56,8 @@ app.use("/api/v1",counselorRoutes)
 app.use("/api/v1",feedBackRoutes)
 //Appointment Routes
 app.use("/api/v1",appointmentRoutes)
+//Payment Routes
+app.use("/api/v1",paymentRoutes)
 
 
 
@@ -63,6 +69,8 @@ app.get("/api/v1/getFeedBacks/:counselorId",feedbackCltr.get)
 app.get("/api/v1/getAppointments/:counselorId",appointmentCltr.getAppointments)
 // gets all aggregated counselor
 app.get("/api/v1/get_aggregated/:counselorId",appointmentCltr.aggregateAppointments)
+
+
 
 app.listen(Port,()=>{
     console.log("server connected on port",Port)
