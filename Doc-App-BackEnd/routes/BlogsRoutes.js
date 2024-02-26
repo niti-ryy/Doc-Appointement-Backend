@@ -7,11 +7,10 @@ const blogValidationSchema = require("../helpers/blog-validation")
 
 blogRouter.route("/createBlog")
     .post(checkSchema(blogValidationSchema),uploadImg,blogsCltr.create);
-
 blogRouter.route("/deleteBlog/:id")
     .delete(blogsCltr.delete);
-
 blogRouter.route("/getBlogs/:id")
     .get(blogsCltr.getBlogs);
-
+// blogRouter.route("/getBlogs/:counsleorId")
+//     .get()
 module.exports=blogRouter   
