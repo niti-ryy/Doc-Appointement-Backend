@@ -19,6 +19,7 @@ const feedbackCltr = require("./controllers/feedbackCltr")
 const appointmentRoutes = require("./routes/AppointmentRoutes")
 const appointmentCltr = require("./controllers/appointmentCltr")
 const paymentRoutes = require("./routes/PaymentRoutes")
+const nodemailerCltr = require("./controllers/nodemailerCltr")
 
 
 
@@ -71,6 +72,8 @@ app.get("/api/v1/getAppointments/:counselorId",appointmentCltr.getAppointments)
 app.get("/api/v1/get_aggregated/:counselorId",appointmentCltr.aggregateAppointments)
 
 
+//nodemailer api testing
+app.post("/api/v1/sendEmail",nodemailerCltr.sendmail)
 
 app.listen(Port,()=>{
     console.log("server connected on port",Port)

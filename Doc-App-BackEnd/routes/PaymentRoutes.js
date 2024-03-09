@@ -1,29 +1,16 @@
 const express = require("express");
 const paymentRoutes = express.Router();
-const razorpayInstance=require("../helpers/payment")
+const razorpayInstance=require("../helpers/payment");
+const { paymentgate,confirmPayment,paymentGateway } = require("../middlewears/paymentGateway");
+const appointmentCltr = require("../controllers/appointmentCltr");
+const mailConfirmation=require("../templates/mailconfirmation");
+const authenticate = require("../middlewears/authenticate");
+const checkRole = require("../middlewears/checkRole");
 
-paymentRoutes.route("/createPayment")
-    .post(async (req, res) => {
-        const { ticketPrice } = req.body;
-        const orderDetails = { // Corrected variable name here
-            amount: ticketPrice,
-            currency: "INR",
-            receipt: new Date().toISOString(),
-            notes: {
-                counselorname: "xyx",
-                patientname: "patient"
-            }
-        };
-        razorpayInstance.orders.create(orderDetails, (err, order) => { // Corrected variable name here
-            if (!err) {
-                res.status(200).json({
-                    message: "success",
-                    data: order
-                });
-            } else {
-                res.send(err);
-            }
-        });
-    });
-
+// paymentRoutes.route("/createPayment")
+//     .post(paymentgate,)
+// paymentRoutes.route("/verifyPayment")
+//   .post(confirmPayment,(req,res)=>{res.send("success")})
+paymentRoutes.route("/create/verify/payment")
+    .post(authenticate,checkRole(["Counselor","Admin","User"]),paymentGateway,appointmentCltr.create,mailConfirmation)
 module.exports = paymentRoutes;
