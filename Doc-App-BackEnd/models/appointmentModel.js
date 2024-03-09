@@ -17,6 +17,12 @@ const appointmentSchema = new mongoose.Schema({
   ticketPrice:{
     type:Number,
     required:true
+  },
+  payment_Id:{
+    type:String,
+  },
+  order_Id:{
+    type:String
   }
 });
 

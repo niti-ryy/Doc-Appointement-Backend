@@ -7,6 +7,7 @@ appointmentRoutes.route("/createAppointment")
     .post(checkRole(["Counselor","Admin"]),appointmentCltr.create)
 appointmentRoutes.route("/updateAppointment/:id")
     .put(checkRole(["Counselor","Admin"]),appointmentCltr.update)
-
+appointmentRoutes.route("/createAppointment/payment")
+    .post(checkRole(["Counselor","User"]),)
 
 module.exports=appointmentRoutes

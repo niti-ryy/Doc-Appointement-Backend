@@ -4,25 +4,35 @@ const appointmentCltr={}
 const _=require("lodash")
 const mongoose=require("mongoose")
 const Profile = require("../models/profileModel")
+const { request } = require("express")
 
-appointmentCltr.create=async(req,res)=>{
-    const body=_.pick(req.body,["userId","counselorId","date","time","status","ticketPrice"])
-    
+appointmentCltr.create=async(req,res,next)=>{
+    const {appointmentData,paymentStatus}=req.body
+    const body=_.pick(appointmentData,["userId","counselorId","date","time","status","ticketPrice"])
+    const paymentData=_.pick(paymentStatus,["orderId","paymentId"])
+    const finalBody={
+        ...paymentData,
+        ...body,
+        paymentStatus:"SUCCESS",
+        status: "confirmed"
+    }
+
     try{
-        const savedAppointment=await new Appointment(body).save()
-        const {counselorId}=savedAppointment
+        const savedAppointment=await new Appointment(finalBody).save()
+        const {counselorId,_id}=savedAppointment
         const pushedAppointment=await Counselor.findByIdAndUpdate(counselorId,{$push:{appointments:savedAppointment._id}},{new:true})
         console.log(pushedAppointment)
-        res.status(200).json({
-            message:true,
-            data:savedAppointment
-        })
+        req.body.savedAppointment={
+            message:"Created appointment response data"
+        }
+        next()
     }catch(e){
         res.status(401).json({
             message:false,
             error:e.message
         })
     }
+    
 }
 
 appointmentCltr.update = async (req, res) => {
