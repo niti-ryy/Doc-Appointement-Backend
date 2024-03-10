@@ -12,5 +12,5 @@ const checkRole = require("../middlewears/checkRole");
 // paymentRoutes.route("/verifyPayment")
 //   .post(confirmPayment,(req,res)=>{res.send("success")})
 paymentRoutes.route("/create/verify/payment")
-    .post(authenticate,checkRole(["Counselor","Admin","User"]),paymentGateway,appointmentCltr.create,mailConfirmation)
+    .post(paymentGateway,appointmentCltr.create,mailConfirmation)
 module.exports = paymentRoutes;
