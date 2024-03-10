@@ -48,7 +48,6 @@ const paymentGateway = async (req, res, next) => {
             req.body.appointmentData = {
                 ...appointmentData,
                 ticketPrice: amount,
-                userId
             }
             next()
         }
