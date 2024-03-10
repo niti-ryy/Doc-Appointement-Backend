@@ -28,7 +28,7 @@ blogRouter.route("/createBlog")
 blogRouter.route("/deleteBlog/:id")
     .delete(authenticate,checkRole(["Counselor","Admin"]),blogsCltr.delete);
 blogRouter.route("/getBlogs/:id")
-    .get(authenticate,checkRole(["Counselor"]),blogsCltr.getBlogs);
+    .get(authenticate,checkRole(["Counselor","User"]),blogsCltr.getBlogs);
 // blogRouter.route("/getBlogs/:counsleorId")
 //     .get()
 module.exports=blogRouter   
