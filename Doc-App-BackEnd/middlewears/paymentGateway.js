@@ -6,7 +6,7 @@ require("dotenv").config()
 // -------------------------------combined calls--------------------------------------------------------
 
 const paymentGateway = async (req, res, next) => {
-    const { appointmentData, orderDetails, paymentConfirmationData,action } = req.body;
+    const { appointmentData, orderDetails, paymentConfirmationData, action } = req.body;
     const { amount, currency } = orderDetails;
     console.log(req.body)
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = paymentConfirmationData;
@@ -16,9 +16,9 @@ const paymentGateway = async (req, res, next) => {
             console.log(orderDetails);
             // amount = amount * 100;
             receipt = generateUniqueID();
-            
+
             const options = {
-                amount: amount*100,
+                amount: amount * 100,
                 currency: currency,
                 receipt: generateUniqueID(),
                 notes: {
@@ -34,19 +34,24 @@ const paymentGateway = async (req, res, next) => {
             res.json(order);
         } else if (action === "verify") {
             // const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = paymentConfirmationData;
-            const sha = crypto.createHmac("sha256", "icM7sXVqPD3tkXzcG2VqstoV");   //have to replave with env 
+            const sha = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);   //have to replave with env 
             sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
             const digest = sha.digest("hex");
             if (digest !== razorpay_signature) {
                 return res.status(400).json({ msg: "Transaction is not legit!" });
             }
-            req.body.paymentStatus={
+            req.body.paymentStatus = {
                 msg: "success",
                 orderId: razorpay_order_id,
-                paymentId: razorpay_payment_id,  
+                paymentId: razorpay_payment_id,
+            }
+            req.body.appointmentData = {
+                ...appointmentData,
+                ticketPrice: amount,
+                userId
             }
             next()
-        } 
+        }
     } catch (e) {
         return res.status(500).json({ message: "Server Error", error: e.message });
     }
